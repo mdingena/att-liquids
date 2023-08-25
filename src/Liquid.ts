@@ -42,9 +42,33 @@ type PresetLiquidContainerComponent = LiquidContainerComponent & {
   customData: null;
 };
 
+/**
+ * Represents a prefab that can have a LiquidContainer component. This class extends the Prefab
+ * class and has additional methods that make it easy to customise liquids.
+ */
 export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> extends Prefab<TPrefabName> {
   private liquidContainerComponent: LiquidContainerComponent;
 
+  /**
+   * Creates a prefab with a LiquidContainer component that can be easily manipulated with methods.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * liquid
+   *   .setColor('#2a455800')
+   *   .setVisualAppearance('VisionStewCooked')
+   *   .addEffect('Feed', 2)
+   *   .addEffect('Heal', 10)
+   *   .addEffect('Nourish')
+   *   .addEffect('SpeedIndirectEffect', 5)
+   *   .addVisualChunk('Salt')
+   *   .addVisualChunk('BabuCooked')
+   *   .addVisualChunk('TomatoCooked')
+   *   .setServings(42);
+   */
   constructor(prefabName: TPrefabName, props: PrefabProps<PrefabName<TPrefabName>> = {}) {
     super(prefabName, {
       ...props,
@@ -57,6 +81,16 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     this.liquidContainerComponent = this.getLiquidContainerComponent();
   }
 
+  /**
+   * Adds an effect to the liquid. You may optionally pass an effect strength multiplier.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * liquid.addEffect('Nourish', 4.20);
+   */
   addEffect(effectName: keyof typeof EffectDefinition, strengthMultiplier = 1): Liquid<TPrefabName> {
     this.makeCustom(this.liquidContainerComponent);
 
@@ -67,6 +101,17 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     return this;
   }
 
+  /**
+   * Adds visual chunks to the liquid, which can be observed when the liquid is poured into an
+   * open container like a wooden bowl or ladle.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * liquid.addVisualChunk('SpriggullDrumstickCooked');
+   */
   addVisualChunk(visualChunkName: keyof typeof LiquidVisualChunkDefinition): Liquid<TPrefabName> {
     this.makeCustom(this.liquidContainerComponent);
 
@@ -77,6 +122,18 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     return this;
   }
 
+  /**
+   * Gets the color of the liquid. You may optionally specify an output format for the color, which
+   * is an RGBA object by default.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * const rgba = liquid.getColor('rgba');
+   * const hexadecimal = liquid.getColor('hexadecimal');
+   */
   getColor(format?: 'hexadecimal'): string | undefined;
   getColor(format?: 'rgba'): ColorRGBA | undefined;
   getColor(format: ColorFormat = 'rgba'): string | ColorRGBA | undefined {
@@ -96,6 +153,17 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     }
   }
 
+  /**
+   * Gets the LiquidContainer component of the liquid. If none is present on the liquid for whatever
+   * reason, one will be created first.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * const liquidContainerComponent = liquid.getLiquidContainerComponent();
+   */
   getLiquidContainerComponent(): LiquidContainerComponent {
     if (typeof this.components.LiquidContainer === 'undefined') {
       const liquidContainerComponent = new LiquidContainerComponent({ version: 1 });
@@ -108,6 +176,9 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     }
   }
 
+  /**
+   * Converts a hexadecimal color code to an RGBA object.
+   */
   protected hexadecimalToRgba(colorHexadecimal: string): ColorRGBA {
     const r = Math.max(0, Math.min(255, parseInt(colorHexadecimal.slice(1, 3), 16)));
     const g = Math.max(0, Math.min(255, parseInt(colorHexadecimal.slice(3, 5), 16)));
@@ -117,6 +188,9 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     return { r, g, b, a };
   }
 
+  /**
+   * Ensures the given LiquidContainerComponent has custom data.
+   */
   protected makeCustom(
     liquidContainerComponent: LiquidContainerComponent
   ): asserts liquidContainerComponent is CustomLiquidContainerComponent {
@@ -136,6 +210,9 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     };
   }
 
+  /**
+   * Ensures the given LiquidContainerComponent is a preset.
+   */
   protected makePreset(
     liquidContainerComponent: LiquidContainerComponent
   ): asserts liquidContainerComponent is PresetLiquidContainerComponent {
@@ -143,6 +220,16 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     liquidContainerComponent.customData = null;
   }
 
+  /**
+   * Removes all effects from the liquid.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * liquid.removeAllEffects();
+   */
   removeAllEffects(): Liquid<TPrefabName> {
     if (!this.liquidContainerComponent.isCustom) return this;
 
@@ -153,6 +240,16 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     return this;
   }
 
+  /**
+   * Removes all visual chunks from the liquid.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * liquid.removeAllVisualChunks();
+   */
   removeAllVisualChunks(): Liquid<TPrefabName> {
     if (!this.liquidContainerComponent.isCustom) return this;
 
@@ -163,6 +260,16 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     return this;
   }
 
+  /**
+   * Removes all effects matching the given name from the liquid.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * liquid.removeEffect('Nourish');
+   */
   removeEffect(effectName: keyof typeof EffectDefinition): Liquid<TPrefabName> {
     if (!this.liquidContainerComponent.isCustom) return this;
 
@@ -177,6 +284,16 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     return this;
   }
 
+  /**
+   * Removes all visual chunks matching the given name from the liquid.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * liquid.removeVisualChunk('SpriggullDrumstickCooked');
+   */
   removeVisualChunk(visualChunkName: keyof typeof LiquidVisualChunkDefinition): Liquid<TPrefabName> {
     if (!this.liquidContainerComponent.isCustom) return this;
 
@@ -191,6 +308,18 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     return this;
   }
 
+  /**
+   * Sets the color of the liquid. You may pass either a hexadecimal color code or an RGBA object.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * liquid.setColor('#2a455800');
+   * // or
+   * liquid.setColor({ r: 42, g: 69, b: 88, a: 0 });
+   */
   setColor(colorHexadecimal: string): Liquid<TPrefabName>;
   setColor(colorRgba: ColorRGBA): Liquid<TPrefabName>;
   setColor(color: string | ColorRGBA): Liquid<TPrefabName> {
@@ -213,6 +342,16 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     return this;
   }
 
+  /**
+   * Sets the liquid to a preset liquid.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * liquid.setPreset('TeleportPotion');
+   */
   setPreset(presetName: keyof typeof LiquidDefinition): Liquid<TPrefabName> {
     if (typeof presetName === 'undefined') {
       throw new Error('You must pass a preset name to set on this liquid.');
@@ -227,6 +366,24 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     return this;
   }
 
+  /* c8 ignore start */
+  override setServings(servings: number): Liquid<TPrefabName> {
+    super.setServings(servings);
+
+    return this;
+  }
+  /* c8 ignore stop */
+
+  /**
+   * Sets the visual appearance of the liquid.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * liquid.setVisualAppearance('Teleport');
+   */
   setVisualAppearance(visualAppearanceName: keyof typeof LiquidVisualData): Liquid<TPrefabName> {
     if (typeof visualAppearanceName === 'undefined') {
       throw new Error('You must pass a visual appearance name to set on this liquid.');
@@ -241,6 +398,9 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     return this;
   }
 
+  /**
+   * Converts an RGBA object to a hexadecimal color code.
+   */
   protected rgbaToHexadecimal(colorRgba: ColorRGBA): string {
     const r = Math.max(0, Math.min(255, Number(colorRgba.r)))
       .toString(16)
