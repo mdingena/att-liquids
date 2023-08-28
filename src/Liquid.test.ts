@@ -210,6 +210,73 @@ describe('Liquid.getConsumableThroughSkin()', () => {
   });
 });
 
+describe('Liquid.getEffects()', () => {
+  describe('when the liquid is not custom', () => {
+    it('returns undefined', () => {
+      const liquid = new Liquid('Potion_Medium', {
+        components: {
+          LiquidContainer: new LiquidContainerComponent({
+            version: 1,
+            isCustom: false,
+            customData: null
+          })
+        }
+      });
+
+      const effects = liquid.getEffects();
+
+      expect(effects).toStrictEqual(undefined);
+    });
+  });
+
+  describe('when the liquid is custom', () => {
+    it('returns the effects', () => {
+      const liquid = new Liquid('Potion_Medium', {
+        components: {
+          LiquidContainer: new LiquidContainerComponent({
+            version: 1,
+            isCustom: true,
+            customData: {
+              color: {
+                r: 42,
+                g: 69,
+                b: 88,
+                a: 0
+              },
+              isConsumableThroughSkin: false,
+              visualDataHash: 0,
+              effects: [
+                null,
+                { hash: EffectDefinition.Feed, strengthMultiplier: 69 },
+                { hash: EffectDefinition.Heal, strengthMultiplier: 69 },
+                { hash: EffectDefinition.Nourish, strengthMultiplier: 69 },
+                null,
+                { hash: EffectDefinition.Heal, strengthMultiplier: 69 },
+                { hash: EffectDefinition.Feed, strengthMultiplier: 69 },
+                { hash: EffectDefinition.Nourish, strengthMultiplier: 69 }
+              ],
+              foodChunks: []
+            }
+          })
+        }
+      });
+
+      const effects = liquid.getEffects();
+
+      expect(effects).toStrictEqual([
+        null,
+        { hash: EffectDefinition.Feed, strengthMultiplier: 69 },
+        { hash: EffectDefinition.Heal, strengthMultiplier: 69 },
+        { hash: EffectDefinition.Nourish, strengthMultiplier: 69 },
+        null,
+        { hash: EffectDefinition.Heal, strengthMultiplier: 69 },
+        { hash: EffectDefinition.Feed, strengthMultiplier: 69 },
+        { hash: EffectDefinition.Nourish, strengthMultiplier: 69 }
+      ]);
+    });
+  });
+});
+
 describe('Liquid.getLiquidContainerComponent()', () => {
   it('returns the LiquidContainerComponent of the liquid', () => {
     const expectedLiquidContainerComponent = new LiquidContainerComponent({

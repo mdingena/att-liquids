@@ -30,6 +30,8 @@ type ColorRGBA = Exclude<LiquidContainerComponentProps['customData'], undefined 
 
 type ColorFormat = 'hexadecimal' | 'rgba';
 
+type Effects = Exclude<LiquidContainerComponentProps['customData'], null | undefined>['effects'];
+
 type CustomLiquidContainerComponent = LiquidContainerComponent & {
   isCustom: true;
   presetHash: 0;
@@ -165,6 +167,21 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
    */
   getConsumableThroughSkin(): boolean {
     return this.liquidContainerComponent.customData?.isConsumableThroughSkin ?? false;
+  }
+
+  /**
+   * Returns an array of all custom effects of the liquid. Does not return effects of preset
+   * liquids.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * const effects = liquid.getEffects();
+   */
+  getEffects(): Effects | undefined {
+    return this.liquidContainerComponent.customData?.effects;
   }
 
   /**

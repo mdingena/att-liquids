@@ -7,6 +7,7 @@
   - [`addVisualChunk(visualChunkName)`](#addvisualchunkvisualchunkname)
   - [`getColor(format?)`](#getcolorformat)
   - [`getConsumableThroughSkin()`](#getconsumablethroughskin)
+  - [`getEffects()`](#geteffects)
   - [`getLiquidContainerComponent()`](#getliquidcontainercomponent)
   - [`removeAllEffects()`](#removealleffects)
   - [`removeAllVisualChunks()`](#removeallvisualchunks)
@@ -111,6 +112,22 @@ import { Liquid } from 'att-liquids';
 const liquid = new Liquid('Potion_Medium');
 
 const isConsumableThroughSkin = liquid.getConsumableThroughSkin();
+```
+
+---
+
+### `getEffects()`
+
+Returns an array of all custom effects of the liquid. Does not return effects of preset liquids.
+
+- Returns: `<Array<{ hash: number; strengthMultiplier; }> | undefined>`
+
+```ts
+import { Liquid } from 'att-liquids';
+
+const liquid = new Liquid('Potion_Medium');
+
+const effects = liquid.getEffects();
 ```
 
 ---
