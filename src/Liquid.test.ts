@@ -319,6 +319,69 @@ describe('Liquid.getLiquidContainerComponent()', () => {
   });
 });
 
+describe('Liquid.getVisualChunks()', () => {
+  describe('when the liquid is not custom', () => {
+    it('returns undefined', () => {
+      const liquid = new Liquid('Potion_Medium', {
+        components: {
+          LiquidContainer: new LiquidContainerComponent({
+            version: 1,
+            isCustom: false,
+            customData: null
+          })
+        }
+      });
+
+      const visualChunks = liquid.getVisualChunks();
+
+      expect(visualChunks).toStrictEqual(undefined);
+    });
+  });
+
+  describe('when the liquid is custom', () => {
+    it('returns the visual chunks', () => {
+      const liquid = new Liquid('Potion_Medium', {
+        components: {
+          LiquidContainer: new LiquidContainerComponent({
+            version: 1,
+            isCustom: true,
+            customData: {
+              color: {
+                r: 42,
+                g: 69,
+                b: 88,
+                a: 0
+              },
+              isConsumableThroughSkin: false,
+              visualDataHash: 0,
+              effects: [],
+              foodChunks: [
+                LiquidVisualChunkDefinition.BabuCooked,
+                LiquidVisualChunkDefinition.Salt,
+                LiquidVisualChunkDefinition.TomatoCooked,
+                LiquidVisualChunkDefinition.Salt,
+                LiquidVisualChunkDefinition.BabuCooked,
+                LiquidVisualChunkDefinition.TomatoCooked
+              ]
+            }
+          })
+        }
+      });
+
+      const visualChunks = liquid.getVisualChunks();
+
+      expect(visualChunks).toStrictEqual([
+        LiquidVisualChunkDefinition.BabuCooked,
+        LiquidVisualChunkDefinition.Salt,
+        LiquidVisualChunkDefinition.TomatoCooked,
+        LiquidVisualChunkDefinition.Salt,
+        LiquidVisualChunkDefinition.BabuCooked,
+        LiquidVisualChunkDefinition.TomatoCooked
+      ]);
+    });
+  });
+});
+
 describe('Liquid.removeAllEffects()', () => {
   describe('when the liquid is not custom', () => {
     it('returns the liquid unaltered', () => {

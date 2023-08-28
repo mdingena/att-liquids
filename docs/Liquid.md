@@ -9,6 +9,7 @@
   - [`getConsumableThroughSkin()`](#getconsumablethroughskin)
   - [`getEffects()`](#geteffects)
   - [`getLiquidContainerComponent()`](#getliquidcontainercomponent)
+  - [`getVisualChunks()`](#getvisualchunks)
   - [`removeAllEffects()`](#removealleffects)
   - [`removeAllVisualChunks()`](#removeallvisualchunks)
   - [`removeEffect(effectName)`](#removeeffecteffectname)
@@ -144,6 +145,22 @@ import { Liquid } from 'att-liquids';
 const liquid = new Liquid('Potion_Medium');
 
 const liquidContainerComponent = liquid.getLiquidContainerComponent();
+```
+
+---
+
+### `getVisualChunks()`
+
+Returns an array of all custom visual chunks of the liquid. Does not return visual chunks of preset liquids.
+
+- Returns: `<Array<number> | undefined>`
+
+```ts
+import { Liquid } from 'att-liquids';
+
+const liquid = new Liquid('Potion_Medium');
+
+const visualChunkHashes = liquid.getVisualChunks();
 ```
 
 ---

@@ -32,6 +32,8 @@ type ColorFormat = 'hexadecimal' | 'rgba';
 
 type Effects = Exclude<LiquidContainerComponentProps['customData'], null | undefined>['effects'];
 
+type VisualChunks = Exclude<LiquidContainerComponentProps['customData'], null | undefined>['foodChunks'];
+
 type CustomLiquidContainerComponent = LiquidContainerComponent & {
   isCustom: true;
   presetHash: 0;
@@ -205,6 +207,21 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     } else {
       return this.components.LiquidContainer;
     }
+  }
+
+  /**
+   * Returns an array of all custom visual chunks of the liquid. Does not return visual chunks of
+   * preset liquids.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * const visualChunkHashes = liquid.getVisualChunks();
+   */
+  getVisualChunks(): VisualChunks | undefined {
+    return this.liquidContainerComponent.customData?.foodChunks;
   }
 
   /**
