@@ -15,6 +15,7 @@
   - [`removeEffect(effectName)`](#removeeffecteffectname)
   - [`removeVisualChunk(visualChunkName)`](#removevisualchunkvisualchunkname)
   - [`setColor(color)`](#setcolorcolor)
+  - [`setConsumableThroughSkin(isConsumableThroughSkin?)`](#setconsumablethroughskinisconsumablethroughskin)
   - [`setPreset(presetName)`](#setpresetpresetname)
   - [`setVisualAppearance(visualAppearanceName)`](#setvisualappearancevisualappearance)
 
@@ -244,6 +245,25 @@ const liquid = new Liquid('Potion_Medium');
 liquid.setColor('#2a455800');
 // or
 liquid.setColor({ r: 42, g: 69, b: 88, a: 0 });
+```
+
+---
+
+### `setConsumableThroughSkin(isConsumableThroughSkin?)`
+
+Sets whether or not the liquid can be consumed through skin contact. Sets true by default.
+
+- `isConsumableThroughSkin` (optional, default `true`) `<boolean>` Whether to set the liquid to be consumable through skin contact.
+- Returns: `<this>`
+
+```ts
+import { Liquid } from 'att-liquids';
+
+const liquid = new Liquid('Potion_Medium');
+
+liquid.setConsumableThroughSkin();
+// or
+liquid.setConsumableThroughSkin(true);
 ```
 
 ---

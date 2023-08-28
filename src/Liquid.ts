@@ -391,7 +391,27 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
   }
 
   /**
-   * Sets the liquid to a preset liquid.
+   * Sets whether or not the liquid can be consumed through skin contact. Sets true by default.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * liquid.setConsumableThroughSkin();
+   * // or
+   * liquid.setConsumableThroughSkin(true);
+   */
+  setConsumableThroughSkin(isConsumableThroughSkin = true): Liquid<TPrefabName> {
+    this.makeCustom(this.liquidContainerComponent);
+
+    this.liquidContainerComponent.customData.isConsumableThroughSkin = isConsumableThroughSkin;
+
+    return this;
+  }
+
+  /**
+   * Sets the liquid to a preset liquid. Removes any customisations.
    *
    * @example
    * import { Liquid } from 'att-liquids';

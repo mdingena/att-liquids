@@ -675,6 +675,35 @@ describe('Liquid.setColor()', () => {
   });
 });
 
+describe('Liquid.setConsumableThroughSkin()', () => {
+  it('sets whether or not the liquid can be consumed through skin contact', () => {
+    const liquid = new Liquid('Potion_Medium', {
+      components: {
+        LiquidContainer: new LiquidContainerComponent({
+          version: 1,
+          isCustom: true,
+          customData: {
+            color: {
+              r: 42,
+              g: 69,
+              b: 88,
+              a: 0
+            },
+            isConsumableThroughSkin: false,
+            visualDataHash: 0,
+            effects: [],
+            foodChunks: []
+          }
+        })
+      }
+    });
+
+    liquid.setConsumableThroughSkin(true);
+
+    expect(liquid.components.LiquidContainer?.customData?.isConsumableThroughSkin).toStrictEqual(true);
+  });
+});
+
 describe('Liquid.setPreset()', () => {
   describe('when not passing a presetName argument', () => {
     it('throws an error', () => {
