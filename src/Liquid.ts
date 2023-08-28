@@ -154,6 +154,20 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
   }
 
   /**
+   * Returns whether or not this liquid can be consumed through skin contact.
+   *
+   * @example
+   * import { Liquid } from 'att-liquids';
+   *
+   * const liquid = new Liquid('Potion_Medium');
+   *
+   * const isConsumableThroughSkin = liquid.getConsumableThroughSkin();
+   */
+  getConsumableThroughSkin(): boolean {
+    return this.liquidContainerComponent.customData?.isConsumableThroughSkin ?? false;
+  }
+
+  /**
    * Gets the LiquidContainer component of the liquid. If none is present on the liquid for whatever
    * reason, one will be created first.
    *

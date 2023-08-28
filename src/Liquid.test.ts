@@ -161,6 +161,55 @@ describe('Liquid.getColor()', () => {
   });
 });
 
+describe('Liquid.getConsumableThroughSkin()', () => {
+  describe('when the liquid is not custom', () => {
+    it('returns false', () => {
+      const liquid = new Liquid('Potion_Medium', {
+        components: {
+          LiquidContainer: new LiquidContainerComponent({
+            version: 1,
+            isCustom: false,
+            customData: null
+          })
+        }
+      });
+
+      const isConsumableThroughSkin = liquid.getConsumableThroughSkin();
+
+      expect(isConsumableThroughSkin).toStrictEqual(false);
+    });
+  });
+
+  describe('when the liquid is custom', () => {
+    it('returns whether or not the liquid is consumable through skin', () => {
+      const liquid = new Liquid('Potion_Medium', {
+        components: {
+          LiquidContainer: new LiquidContainerComponent({
+            version: 1,
+            isCustom: true,
+            customData: {
+              color: {
+                r: 42,
+                g: 69,
+                b: 88,
+                a: 0
+              },
+              isConsumableThroughSkin: true,
+              visualDataHash: 0,
+              effects: [],
+              foodChunks: []
+            }
+          })
+        }
+      });
+
+      const isConsumableThroughSkin = liquid.getConsumableThroughSkin();
+
+      expect(isConsumableThroughSkin).toStrictEqual(true);
+    });
+  });
+});
+
 describe('Liquid.getLiquidContainerComponent()', () => {
   it('returns the LiquidContainerComponent of the liquid', () => {
     const expectedLiquidContainerComponent = new LiquidContainerComponent({

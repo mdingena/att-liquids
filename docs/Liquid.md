@@ -6,6 +6,7 @@
   - [`addEffect(effectName, strengthMultiplier?)`](#addeffecteffectname-strengthmultiplier)
   - [`addVisualChunk(visualChunkName)`](#addvisualchunkvisualchunkname)
   - [`getColor(format?)`](#getcolorformat)
+  - [`getConsumableThroughSkin()`](#getconsumablethroughskin)
   - [`getLiquidContainerComponent()`](#getliquidcontainercomponent)
   - [`removeAllEffects()`](#removealleffects)
   - [`removeAllVisualChunks()`](#removeallvisualchunks)
@@ -94,6 +95,22 @@ const liquid = new Liquid('Potion_Medium');
 
 const rgba = liquid.getColor('rgba');
 const hexadecimal = liquid.getColor('hexadecimal');
+```
+
+---
+
+### `getConsumableThroughSkin()`
+
+Returns whether or not this liquid can be consumed through skin contact.
+
+- Returns: `<boolean>`
+
+```ts
+import { Liquid } from 'att-liquids';
+
+const liquid = new Liquid('Potion_Medium');
+
+const isConsumableThroughSkin = liquid.getConsumableThroughSkin();
 ```
 
 ---
