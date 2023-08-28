@@ -61,7 +61,7 @@ import { Liquid } from 'att-liquids';
 
 const liquid = new Liquid('Potion_Medium');
 
-liquid.addEffect('Nourish', 4.20);
+liquid.addEffect('Nourish', 4.2);
 ```
 
 ---
@@ -167,7 +167,7 @@ const visualChunkHashes = liquid.getVisualChunks();
 
 ### `removeAllEffects()`
 
-Removes all effects from the liquid.
+Removes all custom effects from the liquid.
 
 - Returns: `<this>`
 
@@ -183,7 +183,7 @@ liquid.removeAllEffects();
 
 ### `removeAllVisualChunks()`
 
-Removes all visual chunks from the liquid.
+Removes all custom visual chunks from the liquid.
 
 - Returns: `<this>`
 
@@ -199,7 +199,7 @@ liquid.removeAllVisualChunks();
 
 ### `removeEffect(effectName)`
 
-Removes all effects matching the given name from the liquid.
+Removes all custom effects matching the given name from the liquid.
 
 - Returns: `<this>`
 
@@ -215,7 +215,7 @@ liquid.removeEffect('Nourish');
 
 ### `removeVisualChunk(visualChunkName)`
 
-Removes all visual chunks matching the given name from the liquid.
+Removes all custom visual chunks matching the given name from the liquid.
 
 - Returns: `<this>`
 

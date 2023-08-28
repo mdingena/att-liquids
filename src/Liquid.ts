@@ -269,7 +269,7 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
   }
 
   /**
-   * Removes all effects from the liquid.
+   * Removes all custom effects from the liquid.
    *
    * @example
    * import { Liquid } from 'att-liquids';
@@ -289,7 +289,7 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
   }
 
   /**
-   * Removes all visual chunks from the liquid.
+   * Removes all custom visual chunks from the liquid.
    *
    * @example
    * import { Liquid } from 'att-liquids';
@@ -309,7 +309,7 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
   }
 
   /**
-   * Removes all effects matching the given name from the liquid.
+   * Removes all custom effects matching the given name from the liquid.
    *
    * @example
    * import { Liquid } from 'att-liquids';
@@ -333,7 +333,7 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
   }
 
   /**
-   * Removes all visual chunks matching the given name from the liquid.
+   * Removes all custom visual chunks matching the given name from the liquid.
    *
    * @example
    * import { Liquid } from 'att-liquids';
