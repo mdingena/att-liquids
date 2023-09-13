@@ -434,14 +434,6 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     return this;
   }
 
-  /* c8 ignore start */
-  override setServings(servings: number): Liquid<TPrefabName> {
-    super.setServings(servings);
-
-    return this;
-  }
-  /* c8 ignore stop */
-
   /**
    * Sets the visual appearance of the liquid.
    *
