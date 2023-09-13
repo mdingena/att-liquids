@@ -95,7 +95,7 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
    *
    * liquid.addEffect('Nourish', 4.20);
    */
-  addEffect(effectName: keyof typeof EffectDefinition, strengthMultiplier = 1): Liquid<TPrefabName> {
+  addEffect(effectName: keyof typeof EffectDefinition, strengthMultiplier = 1): this {
     this.makeCustom(this.liquidContainerComponent);
 
     const hash = EffectDefinition[effectName];
@@ -116,7 +116,7 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
    *
    * liquid.addVisualChunk('SpriggullDrumstickCooked');
    */
-  addVisualChunk(visualChunkName: keyof typeof LiquidVisualChunkDefinition): Liquid<TPrefabName> {
+  addVisualChunk(visualChunkName: keyof typeof LiquidVisualChunkDefinition): this {
     this.makeCustom(this.liquidContainerComponent);
 
     const hash = LiquidVisualChunkDefinition[visualChunkName];
@@ -278,7 +278,7 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
    *
    * liquid.removeAllEffects();
    */
-  removeAllEffects(): Liquid<TPrefabName> {
+  removeAllEffects(): this {
     if (!this.liquidContainerComponent.isCustom) return this;
 
     this.makeCustom(this.liquidContainerComponent);
@@ -298,7 +298,7 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
    *
    * liquid.removeAllVisualChunks();
    */
-  removeAllVisualChunks(): Liquid<TPrefabName> {
+  removeAllVisualChunks(): this {
     if (!this.liquidContainerComponent.isCustom) return this;
 
     this.makeCustom(this.liquidContainerComponent);
@@ -318,7 +318,7 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
    *
    * liquid.removeEffect('Nourish');
    */
-  removeEffect(effectName: keyof typeof EffectDefinition): Liquid<TPrefabName> {
+  removeEffect(effectName: keyof typeof EffectDefinition): this {
     if (!this.liquidContainerComponent.isCustom) return this;
 
     const hash = EffectDefinition[effectName];
@@ -342,7 +342,7 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
    *
    * liquid.removeVisualChunk('SpriggullDrumstickCooked');
    */
-  removeVisualChunk(visualChunkName: keyof typeof LiquidVisualChunkDefinition): Liquid<TPrefabName> {
+  removeVisualChunk(visualChunkName: keyof typeof LiquidVisualChunkDefinition): this {
     if (!this.liquidContainerComponent.isCustom) return this;
 
     const hash = LiquidVisualChunkDefinition[visualChunkName];
@@ -368,9 +368,9 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
    * // or
    * liquid.setColor({ r: 42, g: 69, b: 88, a: 0 });
    */
-  setColor(colorHexadecimal: string): Liquid<TPrefabName>;
-  setColor(colorRgba: ColorRGBA): Liquid<TPrefabName>;
-  setColor(color: string | ColorRGBA): Liquid<TPrefabName> {
+  setColor(colorHexadecimal: string): this;
+  setColor(colorRgba: ColorRGBA): this;
+  setColor(color: string | ColorRGBA): this {
     if (typeof color === 'undefined') {
       throw new Error('You must pass a color to set on this liquid.');
     }
@@ -402,7 +402,7 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
    * // or
    * liquid.setConsumableThroughSkin(true);
    */
-  setConsumableThroughSkin(isConsumableThroughSkin = true): Liquid<TPrefabName> {
+  setConsumableThroughSkin(isConsumableThroughSkin = true): this {
     this.makeCustom(this.liquidContainerComponent);
 
     this.liquidContainerComponent.customData.isConsumableThroughSkin = isConsumableThroughSkin;
@@ -420,7 +420,7 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
    *
    * liquid.setPreset('TeleportPotion');
    */
-  setPreset(presetName: keyof typeof LiquidDefinition): Liquid<TPrefabName> {
+  setPreset(presetName: keyof typeof LiquidDefinition): this {
     if (typeof presetName === 'undefined') {
       throw new Error('You must pass a preset name to set on this liquid.');
     }
@@ -444,7 +444,7 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
    *
    * liquid.setVisualAppearance('Teleport');
    */
-  setVisualAppearance(visualAppearanceName: keyof typeof LiquidVisualData): Liquid<TPrefabName> {
+  setVisualAppearance(visualAppearanceName: keyof typeof LiquidVisualData): this {
     if (typeof visualAppearanceName === 'undefined') {
       throw new Error('You must pass a visual appearance name to set on this liquid.');
     }
