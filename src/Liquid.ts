@@ -2,8 +2,11 @@ import {
   ATTPrefabs,
   LiquidContainerComponent,
   Prefab,
+  type BinaryDataOptions,
+  type BinaryReader,
   type LiquidContainerComponentProps,
-  type PrefabProps
+  type PrefabProps,
+  type ToSaveStringOptions
 } from 'att-string-transcoder';
 
 import { EffectDefinition } from './types/EffectDefinition.js';
@@ -124,6 +127,27 @@ export class Liquid<TPrefabName extends LiquidPrefabName = LiquidPrefabName> ext
     this.liquidContainerComponent.customData.foodChunks.push(hash);
 
     return this;
+  }
+
+  /* Typecast the return type. */
+  override clone(options: ToSaveStringOptions = {}): Liquid<TPrefabName> {
+    return super.clone(options) as Liquid<TPrefabName>;
+  }
+
+  /* Typecast the return type. */
+  static override fromBinary<TOverridePrefabName extends LiquidPrefabName = LiquidPrefabName>(
+    reader: BinaryReader,
+    componentVersions?: Map<number, number>
+  ): Liquid<TOverridePrefabName> {
+    return super.fromBinary<TOverridePrefabName>(reader, componentVersions) as Liquid<TOverridePrefabName>;
+  }
+
+  /* Typecast the return type. */
+  static override fromSaveString<TPrefabName extends LiquidPrefabName = LiquidPrefabName>(
+    saveString: string,
+    options?: BinaryDataOptions
+  ): Liquid<TPrefabName> {
+    return super.fromSaveString<TPrefabName>(saveString, options) as Liquid<TPrefabName>;
   }
 
   /**
